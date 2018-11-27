@@ -100,6 +100,8 @@ invalid_input:
     syscall                 # Print invalid input message to the console
     j main                  # Jump back to the beginning of the code
 end_of_string:
+    addi $t0, $v0, -46      # Check the input isn't greater than 46, because fib(45)+fib(46) overflows
+    bgtz $t0, invalid_input # Jump to invalid_input
     lw $ra, 4($sp)          # Load values from the stack
     lw $s0, 0($sp)
     addi $sp, $sp, 8        # Restore the stack pointer
